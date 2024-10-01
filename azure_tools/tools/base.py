@@ -4,10 +4,10 @@ from .common import COMMON_ENVIRONMENT_VARIABLES, COMMON_SECRET_VARIABLES
 AZURE_ICON_URL = "https://azure.microsoft.com/svghandler/azure-logo/?width=300&height=300"
 SCRIPT_LOGIN   = "az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID"
 
-class AzureCliTool(Tool):
+class AzureACRCliTool(Tool):
     def __init__(self, name, description, content, args, long_running=False, mermaid_diagram=None):
         # Combine the login and received content into a single script
-        full_content = f"{SCRIPT_LOGIN}\n{content}"
+        full_content = f"{SCRIPT_LOGIN}\naz acr {content}"
 
         super().__init__(
             name=name,

@@ -1,7 +1,8 @@
-# Azure Command Line Interface (`az`) tool
+# Azure Command Line Interface (`az`) tool for Azure Container Repositories
 
 This tool definition wraps a Docker Hub container containing the Azure CLI into a tool. Can be used
-by Kubiya Teammates to access Azure using CLI commands.
+by Kubiya Teammates to access Azure using CLI commands. This tool specifically interacts with Azure
+Container Registry, and can manipulate container images there.
 
 # Installation
 
@@ -24,17 +25,12 @@ The tool is now available for use by a Teammate.
 
 # Usage
 
-Depending on the roles and access assigned to the associated user, this tool can execute any
-command using the Azure CLI, as indicated below:
-
-    az {{.command}}
-
 This gives the tool significant ability to affect change on your Azure account. Therefore it is
 highly recommended to ensure that appropriate roles and access is assigned.
 
-In addition, this tool can be modified to only execute one type of command. For example:
+In addition, this tool has been modified to only execute a limited subset of commands. For example:
 
-    az account {{.command}}
+    az acr repository list {{.command}}
 
 # Contact
 
