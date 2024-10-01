@@ -12,17 +12,16 @@ azure_acr_tool = AzureACRCliTool(
         Arg(name="command",
             type="str",
             description=("""
-                The Azure CLI command to run (example: account). Do not add `az acr` at the front.
-                Note that the valid commands are:
-                - *repository delete*. Delete a repository or image in an Azure Container 
+                The Azure CLI command to run (example: account). Do not add `az acr repository` at
+                the front. Note that the valid commands are:
+                - *delete*. Delete a repository or image in an Azure Container Registry.
+                - *list*. List repositories in an Azure Container Registry.
+                - *show*. Get the attributes of a repository or image in an Azure Container
                   Registry.
-                - *repository list*. List repositories in an Azure Container Registry.
-                - *repository show*. Get the attributes of a repository or image in an Azure
-                  Container Registry.
-                - *repository show-tags*. Show tags for a repository in an Azure Container Registry.
-                - *repository untag*. Untag an image in an Azure Container Registry.
-                - *repository update*. Update the attributes of a repository or image in an Azure
-                  Container Registry.
+                - *show-tags*. Show tags for a repository in an Azure Container Registry.
+                - *untag*. Untag an image in an Azure Container Registry.
+                - *update*. Update the attributes of a repository or image in an Azure Container
+                  Registry.
                 """),
             required=True),
     ],
