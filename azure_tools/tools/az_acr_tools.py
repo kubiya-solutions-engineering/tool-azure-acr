@@ -1,6 +1,20 @@
 from kubiya_sdk.tools import Arg
 from .base import AzureACRCliTool
 from kubiya_sdk.tools.registry import tool_registry
+from datetime import datetime, timedelta
+
+def subtract_days_from_current_date(days):
+  """Subtracts a variable number of days from the current date and returns a string with that date time value.
+
+  Args:
+    days: The number of days to subtract.
+
+  Returns:
+    A string representing the date time value after subtracting the specified number of days.
+  """
+  today = datetime.now()
+  new_date = today - timedelta(days=days)
+  return new_date.strftime("%Y-%m-%d")
 
 azure_acr_tool = AzureACRCliTool(
     name="azure_acr_cli",
