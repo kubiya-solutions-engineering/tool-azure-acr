@@ -76,7 +76,7 @@ delete_tags = AzureACRCliTool(
         Deletes one or more tags within a provided Azure ACR registry and repository. 
         """),
     content="""
-            az acr repository delete -n {{ .registry}} {{ .tags_to_delete}}
+            az acr repository delete --yes -n {{ .registry}} {{ .tags_to_delete}}
             """,
     args=[
         Arg(name="registry", 
