@@ -54,7 +54,7 @@ list_tags = AzureACRCliTool(
             required=True),
         Arg(name="starts_with",
             type="str",
-            description=("A string to filter tags that start with this value. Use the default value is an empty string, `""`, if not given one."),
+            description=("A string to filter tags that start with this value. Use the default value is an empty string if not given one."),
             required=True),
     ],
 )
