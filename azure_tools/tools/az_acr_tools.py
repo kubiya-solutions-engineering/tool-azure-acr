@@ -18,7 +18,6 @@ azure_acr_tool = AzureACRCliTool(
                 - *list*. List repositories in an Azure Container Registry.
                 - *show*. Get the attributes of a repository or image in an Azure Container
                   Registry.
-                - *show-tags*. Show tags for a repository in an Azure Container Registry.
                 - *untag*. Untag an image in an Azure Container Registry.
                 - *update*. Update the attributes of a repository or image in an Azure Container
                   Registry.
@@ -27,4 +26,30 @@ azure_acr_tool = AzureACRCliTool(
     ],
 )
 
+azure_show_tags_older_than_date = AzureACRCliTool(
+    name="azure_show_tags_older_than_date",
+    description=("""
+        Shows tags of a provided Azure ACR registry and repository that are older than a specified
+        date."
+        """),
+    content="""show-tags -n {{ .registry}} --repository {{ .repository}} --detail \
+            --query "[?lastUpdateTime<'2024-09-02'].{Name:name, LastUpdate:lastUpdateTime}" \
+            --orderby time_asc --top 10""",
+    args=[
+        Arg(name="registry", 
+            type="str", 
+            description=("The Azure ACR registry."), 
+            required=True),
+        Arg(name="repository",  
+            type="str", 
+            description=("The Azure ACR repository within the chosen registry."), 
+            required=True),
+        Arg(name="date",
+            type="str",
+            description=("A date in the format `YYYY-MM-DD` to filter tags."),
+            required=True),
+    ],
+)
+
+tool_registry.register("Azure Container Repository", azure_show_tags_older_than_date)
 tool_registry.register("Azure Container Repository", azure_acr_tool)
