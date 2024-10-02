@@ -3,25 +3,12 @@ from .base import AzureACRCliTool
 from kubiya_sdk.tools.registry import tool_registry
 from datetime import datetime, timedelta
 
-def subtract_days_from_current_date(days):
-  """Subtracts a variable number of days from the current date and returns a string with that date time value.
-
-  Args:
-    days: The number of days to subtract.
-
-  Returns:
-    A string representing the date time value after subtracting the specified number of days.
-  """
-  today = datetime.now()
-  new_date = today - timedelta(days=days)
-  return new_date.strftime("%Y-%m-%d")
-
 azure_acr_tool = AzureACRCliTool(
     name="azure_acr_cli",
     description=(
         "Logs in to Azure CLI and then runs the specified Azure Container Repository command."
         ),
-    content="{{ .command}}",
+    content="az acr repository {{ .command}}",
     args=[
         Arg(name="command",
             type="str",
@@ -46,8 +33,10 @@ azure_show_tags_older_than_date = AzureACRCliTool(
         Shows tags of a provided Azure ACR registry and repository that are older than a specified
         date."
         """),
-    content="""show-tags -n {{ .registry}} --repository {{ .repository}} --detail \
-            --query "[?lastUpdateTime<'{{ .date}}'].{Name:name, LastUpdate:lastUpdateTime}" \
+    content="""
+            export NEW_DATE=date -d "{{ .num_days}} days ago" +%Y-%m-%d
+            az acr repository show-tags -n \{\{ .registry\}\} --repository \{\{ .repository\}\} --detail \
+            --query "[?lastUpdateTime<'$NEW_DATE'].{Name:name, LastUpdate:lastUpdateTime}" \
             --orderby time_asc --top 10""",
     args=[
         Arg(name="registry", 
@@ -58,9 +47,9 @@ azure_show_tags_older_than_date = AzureACRCliTool(
             type="str", 
             description=("The Azure ACR repository within the chosen registry."), 
             required=True),
-        Arg(name="date",
-            type="str",
-            description=("A date in the format `YYYY-MM-DD` to filter tags."),
+        Arg(name="num_days",
+            type="int",
+            description=("The number of days indicating age of tags. For example, `today` would be `0` and `two days ago` would be `2`."),
             required=True),
     ],
 )

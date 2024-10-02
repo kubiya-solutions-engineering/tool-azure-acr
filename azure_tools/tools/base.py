@@ -7,7 +7,7 @@ SCRIPT_LOGIN   = "az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLI
 class AzureACRCliTool(Tool):
     def __init__(self, name, description, content, args, long_running=False, mermaid_diagram=None):
         # Combine the login and received content into a single script
-        full_content = f"{SCRIPT_LOGIN}\naz acr repository {content}"
+        full_content = f"{SCRIPT_LOGIN}\n{content}"
 
         super().__init__(
             name=name,
