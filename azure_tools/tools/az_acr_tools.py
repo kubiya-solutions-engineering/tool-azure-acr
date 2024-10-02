@@ -39,6 +39,7 @@ list_tags = AzureACRCliTool(
             az acr repository show-tags -n {{ .registry}} --repository {{ .repository}} \
               --detail \
               --query "[?lastUpdateTime<'$NEW_DATE' && starts_with(name, {{ .starts_with}})].{Name:name}" \
+              -o tsv \
             | head -n {{ .num_tags}}
             """,
     args=[
