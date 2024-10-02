@@ -35,7 +35,7 @@ azure_show_tags_older_than_date = AzureACRCliTool(
         """),
     content="""
             export NEW_DATE=$(date -d "{{ .num_days}} days ago" +%Y-%m-%d)
-            az acr repository show-tags -n \{\{ .registry\}\} --repository \{\{ .repository\}\} --detail \
+            az acr repository show-tags -n {{ .registry}} --repository {{ .repository}} --detail \
             --query "[?lastUpdateTime<'$NEW_DATE'].{Name:name, LastUpdate:lastUpdateTime}" \
             --orderby time_asc --top 10""",
     args=[
