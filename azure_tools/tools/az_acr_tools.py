@@ -69,6 +69,28 @@ list_tags = AzureACRCliTool(
     ],
 )
 
+
+delete_tags = AzureACRCliTool(
+    name="delete_tags",
+    description=("""
+        Deletes one or more tags within a provided Azure ACR registry and repository. 
+        """),
+    content="""
+            az acr repository delete -n {{ .registry}} {{ .tags_to_delete}}
+            """,
+    args=[
+        Arg(name="registry", 
+            type="str", 
+            description=("The Azure ACR registry."), 
+            required=True),
+        Arg(name="tags_to_delete",  
+            type="str", 
+            description=("One or more tags to delete; must be in the format `--image REPOSITORY:TAG ...`. More than one may be specified separated by a space. For example, `--image my-repository:my-tag --image my-repository:my-next-tag`, and so on."), 
+            required=True),
+    ],
+)
+
+
 #azure_delete_tags_older_than_date = AzureACRCliTool(
 #    name="azure_delete_tags_older_than_date",
 #    description=("Deletes tags of a provided Azure ACR registry and repository that are older than a specified date."),
@@ -100,5 +122,6 @@ list_tags = AzureACRCliTool(
 
 
 tool_registry.register("Azure Container Repository", list_tags)
+tool_registry.register("Azure Container Repository", delete_tags)
 tool_registry.register("Azure Container Repository", azure_acr_tool)
 #tool_registry.register("Azure Container Repository", azure_delete_tags_older_than_date)
