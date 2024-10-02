@@ -60,7 +60,7 @@ azure_delete_tags_older_than_date = AzureACRCliTool(
     content="""
             export NEW_DATE=$(date -d "{{ .num_days}} days ago" +%Y-%m-%d)
             for tag in $(az acr repository show-tags -n {{ .registry}} --repository {{ .repository}} --query "[?lastUpdateTime<'$NEW_DATE' && starts_with(@, '{{ .filter }}')].name" -o tsv); do
-                az acr repository delete -n {{ .registry}} --repository {{ .repository}} --tag $tag
+                az acr repository delete -n {{ .registry}} --image {{ .repository }}:$tag --yes
             done
             """,
     args=[
