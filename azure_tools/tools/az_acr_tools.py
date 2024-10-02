@@ -55,7 +55,7 @@ list_tags = AzureACRCliTool(
             required=True),
         Arg(name="starts_with",
             type="str",
-            description=("A string to filter tags that start with this value. Values must be enclosed in single quotes, e.g., 'value', and all double quotes must be removed." 
+            description=("A string to filter tags that start with this value. Values must be enclosed in single quotes, e.g., 'value', and all double quotes must be removed.",
             default="''",
             required=True),
     ],
