@@ -30,8 +30,9 @@ azure_acr_tool = AzureACRCliTool(
 list_tags = AzureACRCliTool(
     name="list_tags",
     description=("""
-        Shows tags of a provided Azure ACR registry and repository that are older than a specified
-        date."
+        Shows tags of a provided Azure ACR registry and repository. Optionally, a number of days
+        describing how old a tag is, and/or what the tags starts with may also be passed as
+        arguments.
         """),
     content="""
             export NEW_DATE=$(date -d "{{ .num_days}} days ago" +%Y-%m-%d)
