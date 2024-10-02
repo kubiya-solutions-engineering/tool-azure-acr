@@ -36,9 +36,11 @@ list_tags = AzureACRCliTool(
         """),
     content="""
             export NEW_DATE="$(date -Is -u -d '{{ .num_days}} days ago' )Z"
-            az acr repository show-tags -n {{ .registry}} --repository {{ .repository}} --detail \
-            --query "[?lastUpdateTime<'$NEW_DATE' && starts_with(name, {{ .starts_with}})].{Name:name, LastUpdate:lastUpdateTime} \
-            | head -n {{ .num_repos}}" 
+            az acr repository show-tags -n {{ .registry}} --repository {{ .repository}} \
+              --detail \
+              --query "[?lastUpdateTime<'$NEW_DATE' && starts_with(name, {{ .starts_with}})].{Name:name}" \
+              -o tsv \
+              | head -n {{ .num_tags}}" 
             """,
     args=[
         Arg(name="registry", 
@@ -59,9 +61,9 @@ list_tags = AzureACRCliTool(
             description="A string to filter tags that start with this value. Values must be enclosed in single quotes, e.g., 'value', and all double quotes must be removed.",
             default="''",
             required=True),
-        Arg(name="num_repos",
+        Arg(name="num_tags",
             type="str",
-            description=("The number of repos to print."),
+            description=("The number of tags to return."),
             default="-0",
             required=True),
     ],
