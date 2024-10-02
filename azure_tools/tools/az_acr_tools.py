@@ -35,7 +35,7 @@ list_tags = AzureACRCliTool(
         arguments.
         """),
     content="""
-            export NEW_DATE=$(date -d "{{ .num_days}} days ago" +%Y-%m-%d)
+            export NEW_DATE="$(date -Is -u -d '{{ .num_days}} days ago' )Z"
             az acr repository show-tags -n {{ .registry}} --repository {{ .repository}} --detail \
             --query "[?lastUpdateTime<'$NEW_DATE' && starts_with(name, {{ .starts_with}})].{Name:name, LastUpdate:lastUpdateTime}" 
             """,
