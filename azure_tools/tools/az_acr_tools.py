@@ -50,11 +50,13 @@ list_tags = AzureACRCliTool(
             required=True),
         Arg(name="num_days",
             type="str",
-            description=("The number of days indicating age of tags. For example, `today` would be `0` and `two days ago` would be `2`. Use the default value `0` if not given one."),
+            description=("The number of days indicating age of tags. For example, `today` would be `0` and `two days ago` would be `2`."),
+            default="0"
             required=True),
         Arg(name="starts_with",
             type="str",
             description=("A string to filter tags that start with this value. Use the default value is an empty string if not given one."),
+            default="",
             required=True),
     ],
 )
