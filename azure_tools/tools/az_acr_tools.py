@@ -90,6 +90,6 @@ list_tags = AzureACRCliTool(
 #)
 
 
-tool_registry.register("Azure Container Repository", azure_show_tags_older_than_date)
+tool_registry.register("Azure Container Repository", list_tags)
 tool_registry.register("Azure Container Repository", azure_acr_tool)
-tool_registry.register("Azure Container Repository", azure_delete_tags_older_than_date)
+#tool_registry.register("Azure Container Repository", azure_delete_tags_older_than_date)
