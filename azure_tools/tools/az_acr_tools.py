@@ -33,7 +33,7 @@ azure_show_tags_older_than_date = AzureACRCliTool(
         date."
         """),
     content="""show-tags -n {{ .registry}} --repository {{ .repository}} --detail \
-            --query "[?lastUpdateTime<'2024-09-02'].{Name:name, LastUpdate:lastUpdateTime}" \
+            --query "[?lastUpdateTime<'{{ .date}}'].{Name:name, LastUpdate:lastUpdateTime}" \
             --orderby time_asc --top 10""",
     args=[
         Arg(name="registry", 
